@@ -1,3 +1,4 @@
+%function%
 function TINT = TRAPEI(f, n, h)
 i = 1; sum = 0;
 while(1)
