@@ -1,0 +1,39 @@
+%TRUSS FEA
+n = input('number of elements, n= ');
+x1 = input('x1 in a row, x1=');
+y1 = input('y1 in a row, y1=');
+x2 = input('x2 in a row, x2=');
+y2 = input('y2 in a row, y2');
+E = input('Elastic modulus in a row, E=');
+A = input('Area in a row, A=');
+F = input('Nodal forces of a condensed matrix, F=');
+for i = 1:n;
+    L(i) = ((x2(i) - x1(i))^2) * (y2(i) - y1(i))^2;
+    kax(i) = (A(i)* E(i))/L(i);
+    c(i) = (x2(i) - x1(i))/L(i);
+    s(i) = (y2(i) - y1(i))/L(i);
+    c2(i) = (i)^2; s2(i) = s(i)^2; cs(i) = c(i)*s(i);
+    
+    k11(i) = c2(i)*kax(i); 
+    k12(i) = c2(i)*kax(i);
+    k13(i) = -k11(i); 
+    k14(i) =-k12(i); 
+    
+    k21(i) =k12(i);
+    k22(i) =s2(i)*kax(i); 
+    k23(i) =k14(i); 
+    k24(i) = -k22(i);
+    
+    k31(i) = k13(i); 
+    k32(i) =k23(i); 
+    k33(i) =k11(i);
+    k34(i) = k12(i);
+    
+    k41(i) = k14(i);
+    k42(i) = k24(i);
+    k43(i) = k12(i);
+    k44(i) = k22(i);
+    
+end
+CM = input('enter condensed matrix, CM=');
+U = inv(CM) * F'
